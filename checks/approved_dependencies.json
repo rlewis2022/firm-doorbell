@@ -1,0 +1,17 @@
+{
+  "_comment": "Absolute A-08: the only approved dependencies, each pinned. Adding or changing one needs a decision-log entry and an Architect-owned wall-change commit (A-09).",
+  "arduino_platforms": {
+    "esp32:esp32": "3.3.12"
+  },
+  "arduino_libraries": {},
+  "tools": {
+    "arduino-cli": { "version": "1.5.1", "sha256_linux_64bit": "28a8e119c498a25607821c36cb2dc49e8463941b261a0d99091baa7bc692dd2b", "decision": "DL-018" },
+    "gitleaks": { "version": "8.30.1", "sha256_linux_x64": "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb", "decision": "DL-013" },
+    "doctest": { "version": "2.5.3", "sha256_header": "cfd518a3ef90f67e1f3ba514df23fb3627437de1a2feeba78cf5062a40021421", "decision": "DL-013" }
+  },
+  "github_actions": {
+    "actions/checkout": "fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+    "actions/cache": "caa296126883cff596d87d8935842f9db880ef25"
+  },
+  "npm": {}
+}
