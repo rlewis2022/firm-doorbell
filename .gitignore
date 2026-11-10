@@ -1,0 +1,16 @@
+# Build output
+tests/local/build/
+build/
+*.bin
+*.elf
+*.map
+# Local secrets and environment (absolute A-01: never commit credentials)
+.env
+*.env
+secrets.h
+**/secrets/*
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
