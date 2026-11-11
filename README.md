@@ -34,4 +34,5 @@ Firmware builds with `arduino-cli compile --profile doorbell firmware/doorbell` 
 with the settings listed there.
 
 ## License
-Not yet chosen. Until a license is added, all rights are reserved by the author.
+[MIT](LICENSE) © 2026 R.A. Lewis. Third-party code keeps its own license: doctest
+(`tests/local/third_party/doctest.h`) is MIT, © Viktor Kirilov.
