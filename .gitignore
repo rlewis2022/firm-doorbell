@@ -14,3 +14,7 @@ secrets.h
 Thumbs.db
 .vscode/
 *.swp
+
+# Python bytecode (regenerated whenever the checks run)
+__pycache__/
+*.pyc
