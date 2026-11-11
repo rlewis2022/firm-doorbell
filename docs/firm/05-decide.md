@@ -1,6 +1,6 @@
 # ESP32 Doorbell — Elaboration: Decide (FIRM)
 
-Status: **APPROVED by Ron 2026-11-09 (Q1–Q7; decision log DL-011 to DL-017).** Next: put the mold in place (repo skeleton, check scripts, pipeline, manifest, instruction file), then the Mold gate.
+Status: **APPROVED by Ron 2026-11-09 (Q1–Q7; decision log DL-011 to DL-017).** Mold in place as baseline 0 (PR #1, merged 2026-11-10). **Mold gate passed 2026-11-10, signed by Ron (DL-021).** Next: Construction, backlog rank 1.
 
 Decide turns the evidence from Discover and spike S-01 into the **mold**: architecture, absolutes with checks, budgets, the repo and pipeline, and the ranked backlog. The Doorbell is detailed now (DL-004: Doorbell first). The Indoor Ringer, relay and backend are outlined, and get detailed after spike S-02.
 
