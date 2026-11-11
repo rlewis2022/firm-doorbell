@@ -15,8 +15,8 @@ and AI iteration is recorded in [`docs/firm/`](docs/firm/), and every change pas
 ## Status
 **Baseline 0: the mold is in place** — folder layout, absolute checks, pinned build, Local-tier test
 runner, protected-file manifest, and the AI instruction file ([`CLAUDE.md`](CLAUDE.md)). No product
-behavior yet; the first increment (Doorbell plays its built-in sound on a button press) comes after
-the Mold gate.
+behavior yet. **The Mold gate passed on 2026-11-10**; Construction starts with the first increment
+(Doorbell plays its built-in sound on a button press).
 
 ## Hardware
 ESP32-S3 SuperMini ×2 · MAX98357A I2S amplifier ×2 · 8 Ω speakers · push button · 1S 3.7 V LiPo
