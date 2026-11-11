@@ -2,6 +2,8 @@
 
 Status: **CLOSED 2026-11-09 by the Product Owner.** Run on Ron's bench 2026-11-09 (Ron ran it as approved work; closure recorded in chat). Spike code is throwaway: archived read-only at `claude/spikes/S-01-wake-and-play/` in the project, never merged.
 
+**Correction (2026-11-11):** the archived sketch's comments name the NS4168 amplifier and a 16 kHz sample rate. Both runs used the **MAX98357A**, at 24 kHz (run 1) and 32 kHz (run 2). See `spikes/S-01-wake-and-play/ERRATA.md`. The sketch itself is left unchanged.
+
 ## Spike card
 - **Question:** On the ESP32-S3 SuperMini, can a button press wake the board from deep sleep, and can it then play a built-in sound through the I2S amplifier using the core's own `playWAV()` (Arduino ESP32 core 3.3.12)? How long does it take from button press to sound?
 - **Why it matters:** decides the Doorbell's basic design (deep sleep + wake on button) and the audio approach (core library vs. third-party) before Decide. It also tests the Product Owner's expectation below.
