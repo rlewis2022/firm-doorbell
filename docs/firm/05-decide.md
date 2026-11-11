@@ -102,12 +102,12 @@ The **vital few** is "it rings, inside and out, with the network down." That's t
 |---|---|---|---|
 | 1 | Button wake plays the built-in sound from flash, then sleeps | Doorbell | Pipeline + Local tests set up first |
 | 2 | Indoor Ringer plays the built-in sound on a ring message (and on its own test button) | Indoor Ringer | — |
-| 3 | Doorbell sends a **ring** message over ESP-NOW (contract v1.0); Ringer rings | Both | ESP-NOW only, no Wi-Fi, so **S-02 isn't needed yet** |
+| 3 | Doorbell sends a **ring** message over ESP-NOW (contract v1.0); Ringer rings | Both | ESP-NOW only, no Wi-Fi, so **S-02 isn't needed yet**. **Spike S-03 first** (DL-024, added 2026-11-11) |
 | 4 | Battery power path, status/charging LED, sleep-current measurement | Doorbell | Meter (DL-009), A1 |
 | 5 | Indoor Ringer joins Wi-Fi and reads its config from the backend | Ringer + backend | **Spike S-02** (channel sharing) |
 | 6 | Backend: login, upload, select a sound | Backend | Droplet |
 | 7 | Ringer downloads, verifies and plays the selected sound (fallback per A-04) | Ringer | — |
-| 8 | Ringer relays the sound to the Doorbell over ESP-NOW; Doorbell verifies and plays it | Both | S-02 results |
+| 8 | Ringer relays the sound to the Doorbell over ESP-NOW; Doorbell verifies and plays it | Both | S-02 results; S-03 results and the update-delivery decision (DL-024, added 2026-11-11) |
 
 **Against the 2026-11-17 date:** ranks 1–3 (plus the pipeline) are a realistic target. That's a working two-unit doorbell with no network at all. Ranks 4–8 are a second sprint. **This is a Product Owner call** (Q6).
 
