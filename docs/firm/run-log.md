@@ -17,3 +17,9 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 | Increment | Date | Lock commit | New Local checks | Result against the stub | Reclassified as protected behavior |
 |---|---|---|---|---|---|
 | INC-01 | 2026-11-11 | see `git log` on `inc/01-ring-from-flash` ("Lock INC-01 checks") | 7 (AC1–AC7, `tests/local/locked/test_inc01_ring.cpp`) | All 7 compiled, ran and failed on their assertions (doctest: 7 of 8 test cases failed; the baseline-0 test passed) | None |
+
+## Increment status
+
+| Increment | Machine gate | Verifier code review | Real tier | Integrated | Baseline |
+|---|---|---|---|---|---|
+| INC-01 | Passed (branch run 43015981086; passed again on `main` after the merge) | **Accepted as written** by Ron, 2026-11-11, reviewing the code on GitHub | RT-01, RT-02: **not run yet** | 2026-11-11, **before the Real tier**: merging PR #6 also brought in INC-01's commits, because #6 was stacked on #5 (an Engineer error; pull requests won't be stacked again). Left in place by decision of the Product Owner. | Not yet. Becomes baseline 1 only when RT-01 and RT-02 pass and are recorded here |
