@@ -18,6 +18,7 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 | Increment | Date | Lock commit | New Local checks | Result against the stub | Reclassified as protected behavior |
 |---|---|---|---|---|---|
 | INC-01 | 2026-11-11 | see `git log` on `inc/01-ring-from-flash` ("Lock INC-01 checks") | 7 (AC1–AC7, `tests/local/locked/test_inc01_ring.cpp`) | All 7 compiled, ran and failed on their assertions (doctest: 7 of 8 test cases failed; the baseline-0 test passed) | None |
+| INC-02 | 2026-11-12 | see `git log` on `inc/02-ringer-rings` ("Lock INC-02 checks") | 9 (AC1–AC9, `tests/local/locked/test_inc02_ringer.cpp`) | All 9 compiled, ran and failed on their assertions (doctest: 9 of 17 test cases failed; the 8 existing tests passed) | None |
 
 ## Increment status
 
