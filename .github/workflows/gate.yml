@@ -58,5 +58,11 @@ jobs:
           test "${PIPESTATUS[0]}" -eq 0
           python3 checks/check_b01_size.py doorbell-build.log
 
+      - name: "2 - Build the Indoor Ringer (pinned profile) and check budget B-05"
+        run: |
+          ./arduino-cli compile --profile indoor-ringer firmware/indoor-ringer 2>&1 | tee ringer-build.log
+          test "${PIPESTATUS[0]}" -eq 0
+          python3 checks/check_b05_ringer_size.py ringer-build.log
+
       - name: "3 + 4 - Acceptance checks and regression suite (Local tier)"
         run: make -C tests/local test

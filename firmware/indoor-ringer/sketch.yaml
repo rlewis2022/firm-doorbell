@@ -1,0 +1,10 @@
+# Pinned build profile for the Indoor Ringer (absolute A-08; decisions DL-002, DL-027).
+# Board: ESP32-S3 SuperMini, built as "ESP32S3 Dev Module" with the settings verified in Discover D2,
+# and the No-OTA flash layout (2 MB app / ~1.9 MB storage): firmware updates over USB only.
+profiles:
+  indoor-ringer:
+    fqbn: esp32:esp32:esp32s3:CDCOnBoot=cdc,FlashSize=4M,PSRAM=enabled,PartitionScheme=no_ota,CPUFreq=240
+    platforms:
+      - platform: esp32:esp32 (3.3.12)
+        platform_index_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+default_profile: indoor-ringer

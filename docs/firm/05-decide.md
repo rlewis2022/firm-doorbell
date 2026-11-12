@@ -34,7 +34,7 @@ Decide turns the evidence from Discover and spike S-01 into the **mold**: archit
 **The built-in sound** is a WAV converted at build time into a `const` array in flash (DL-008), at 24 kHz (DL-010), 16-bit, mono. A small script in the repo does the conversion, so the sound file itself is the source and the array is generated, never hand-edited.
 
 ### 1.3 Indoor Ringer and backend (outline only)
-- **Indoor Ringer:** the same three layers. Adds Wi-Fi, a backend client, file download and verification, and the ESP-NOW relay to the Doorbell. Detailed after S-02.
+- **Indoor Ringer:** the same three layers. Adds Wi-Fi, a backend client, file download and verification, and the ESP-NOW relay to the Doorbell. Detailed after S-02. **Hardware and build (DL-027, 2026-11-12):** same board, amp and pins as the Doorbell; GPIO2 is its test button; GAIN 100 kΩ to GND (15 dB); No-OTA layout; budget B-05; plays the same built-in sound; chimes on power-on; a ring that arrives while it's chiming is ignored.
 - **Backend:** Node.js on a $4–6 Droplet (Discover D6). Login (single user/family), upload, select, versioned API. Detailed in a later sprint.
 
 ### 1.4 Open questions in the architecture
@@ -70,6 +70,7 @@ Format per the book: rule · why · scope · check · owner. Owner is Ron (Archi
 | B-02 | Sound file format and size | **24 kHz, 16-bit, mono PCM WAV, ≤ 3.0 s → ≤ 144,044 bytes** | ≥ 2.4 s | Backend rejects anything else at upload; device verifies on receipt |
 | B-03 | Press-to-sound time (Doorbell) | **≤ 300 ms** (approved 2026-11-12, DL-025; first measured 105–107 ms) | 240 ms | Real tier: RT-01 at increment transition |
 | B-04 | Doorbell average current | **≤ 0.9 mA average** (derived: 1000 mAh ÷ 720 h ÷ 1.5 margin, with the battery Ron is considering) | 0.72 mA | Real tier: µA multimeter procedure (DL-009) |
+| B-05 | Indoor Ringer firmware size | **≤ 1,572,864 bytes** (75% of the 2 MB No-OTA app partition; DL-027, added 2026-11-12) | 80% | Every build, in the gate |
 
 Context for B-02: one 3-second sound is ≈ 98 ESP-NOW packets at 1,470 bytes. Each unit only needs to store **one** custom sound (the selected one); the built-in sound lives in firmware flash. Storage space is 1,441,792 bytes (default layout) or 1,966,080 bytes (No OTA), so about 9 or 13 full-length sounds before file-system overhead. One is plenty.
 
