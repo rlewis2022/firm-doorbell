@@ -22,4 +22,12 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 
 | Increment | Machine gate | Verifier code review | Real tier | Integrated | Baseline |
 |---|---|---|---|---|---|
-| INC-01 | Passed (branch run 43015981086; passed again on `main` after the merge) | **Accepted as written** by Ron, 2026-11-11, reviewing the code on GitHub | RT-01, RT-02: **not run yet** | 2026-11-11, **before the Real tier**: merging PR #6 also brought in INC-01's commits, because #6 was stacked on #5 (an Engineer error; pull requests won't be stacked again). Left in place by decision of the Product Owner. | Not yet. Becomes baseline 1 only when RT-01 and RT-02 pass and are recorded here |
+| INC-01 | Passed (branch run 43015981086; passed again on `main` after the merge) | **Accepted as written** by Ron, 2026-11-11, reviewing the code on GitHub | RT-02: **PASSED** 2026-11-12 (see Real-tier results). RT-01: not run yet | 2026-11-11, **before the Real tier**: merging PR #6 also brought in INC-01's commits, because #6 was stacked on #5 (an Engineer error; pull requests won't be stacked again). Left in place by decision of the Product Owner. | Not yet. Becomes baseline 1 only when RT-01 and RT-02 pass and are recorded here |
+
+## Real-tier results
+
+| Procedure | Date | Who | Firmware under test | Observations | Result |
+|---|---|---|---|---|---|
+| RT-02 wake, play, sleep | 2026-11-12 | Ron | INC-01 as merged on `main` (code unchanged since 2b02d31), built in Arduino IDE with core 3.3.12, ESP32S3 Dev Module, No OTA | 1: chimed once at power-on, then the port disappeared · 2: silent for 10 s · 3–4: 10 presses, 10 complete chimes, port gone after each · 5: 5+ s hold gave exactly one complete chime · 6: a normal press after the hold gave one complete chime | **PASS** |
+
+Bench notes (2026-11-12): the first build failed with only "exit status 1"; the IDE had the generic `esp32_family` board selected (no partition scheme), and core 3.3.7 was installed. Fixed by selecting ESP32S3 Dev Module and installing core 3.3.12 (the pinned version). The board's BOOT and RST buttons can't be reached (it's mounted upside down on the breadboard), so INC-01 was uploaded by holding the doorbell button to keep the board awake, and reset by unplugging and replugging USB.
