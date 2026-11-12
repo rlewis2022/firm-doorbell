@@ -37,7 +37,7 @@ A two-unit ESP32-S3 doorbell built as a worked example of the FIRM method:
 ## Budgets (checked)
 - **B-01** Doorbell firmware ≤ 1,572,864 bytes (No-OTA layout). Warning at 80%.
 - **B-02** Sounds: PCM WAV, 24 kHz, 16-bit, mono, ≤ 3.0 s (≤ 144,044 bytes).
-- **B-03** Press-to-sound ≤ 300 ms (Real tier, proposed). **B-04** Doorbell average current ≤ 0.9 mA (Real tier).
+- **B-03** Press-to-sound ≤ 300 ms (Real tier, RT-01; approved, DL-025). **B-04** Doorbell average current ≤ 0.9 mA (Real tier).
 
 ## Layout and layers
 - `firmware/<unit>/<unit>.ino` — wiring only: create hardware objects, hand them to logic. No decisions.

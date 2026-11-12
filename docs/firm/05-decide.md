@@ -68,7 +68,7 @@ Format per the book: rule · why · scope · check · owner. Owner is Ron (Archi
 |---|---|---|---|---|
 | B-01 | Doorbell firmware image size | **≤ 75% of the app partition** (1,572,864 bytes with No OTA; 983,040 with the default layout) | at 80% of the limit | From arduino-cli build output, **every iteration** (Local) |
 | B-02 | Sound file format and size | **24 kHz, 16-bit, mono PCM WAV, ≤ 3.0 s → ≤ 144,044 bytes** | ≥ 2.4 s | Backend rejects anything else at upload; device verifies on receipt |
-| B-03 | Press-to-sound time (Doorbell) | **≤ 300 ms** (proposed; DL-008) | 240 ms | Real tier: phone-recording procedure at increment transition |
+| B-03 | Press-to-sound time (Doorbell) | **≤ 300 ms** (approved 2026-11-12, DL-025; first measured 105–107 ms) | 240 ms | Real tier: RT-01 at increment transition |
 | B-04 | Doorbell average current | **≤ 0.9 mA average** (derived: 1000 mAh ÷ 720 h ÷ 1.5 margin, with the battery Ron is considering) | 0.72 mA | Real tier: µA multimeter procedure (DL-009) |
 
 Context for B-02: one 3-second sound is ≈ 98 ESP-NOW packets at 1,470 bytes. Each unit only needs to store **one** custom sound (the selected one); the built-in sound lives in firmware flash. Storage space is 1,441,792 bytes (default layout) or 1,966,080 bytes (No OTA), so about 9 or 13 full-length sounds before file-system overhead. One is plenty.
