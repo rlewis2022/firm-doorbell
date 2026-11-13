@@ -35,7 +35,7 @@ Decide turns the evidence from Discover and spike S-01 into the **mold**: archit
 
 ### 1.3 Indoor Ringer and backend (outline only)
 - **Indoor Ringer:** the same three layers. Adds Wi-Fi, a backend client, file download and verification, and the ESP-NOW relay to the Doorbell. Detailed after S-02. **Hardware and build (DL-027, 2026-11-12):** same board, amp and pins as the Doorbell; GPIO2 is its test button; GAIN 100 kΩ to GND (15 dB); No-OTA layout; budget B-05; plays the same built-in sound; chimes on power-on; a ring that arrives while it's chiming is ignored.
-- **Backend:** Node.js on a $4–6 Droplet (Discover D6). Login (single user/family), upload, select, versioned API. Detailed in a later sprint.
+- **Backend:** Node.js on a $4–6 Droplet (Discover D6). Login (single user/family), upload, select, versioned API. Detailed in a later sprint. **Uploaded sounds are stored on the Droplet's own disk (DL-032, 2026-11-13)**; a backup plan is decided in the backend's Decide.
 
 ### 1.4 Open questions in the architecture
 - **A1. Battery power path:** on battery, the SuperMini's 5V pin probably isn't powered, so the MAX98357A may need power from the battery side. To be checked against the board before the battery increment.
@@ -110,7 +110,7 @@ The **vital few** is "it rings, inside and out, with the network down." That's t
 | 7 | Indoor Ringer joins Wi-Fi and reads its config from the backend | Ringer + backend | **Spike S-02** (channel sharing) |
 | 8 | Backend: login, upload, mark the active sound | Backend | Droplet |
 | 9 | Ringer downloads, verifies and plays the marked sound (fallback per A-04), then relays it to the Doorbell with rank 4's transfer | Both | Ranks 4, 7, 8 |
-| 10 | **Update button** (DL-029): the Ringer's button checks the server for an update, first playing a spoken "Checking for update" (a second built-in sound). The same button is Inception's reset/config button | Ringer | Ranks 7–9 |
+| 10 | **Update button** (DL-029, DL-032): a **quick press** of the Ringer's button checks the server and downloads the selected sound, first playing a spoken "Checking for update" (a built-in sound). The same button, **held 10 s**, enters configuration mode (rank 6) | Ringer | Ranks 7–9 |
 
 Re-ranked 2026-11-12 (DL-029): old rank 8 became rank 4 (with a hand-loaded test sound); old ranks 4–7 became 5–8; rank 9 added. Re-ranked 2026-11-13 (DL-031): configuration mode added as rank 6; the Wi-Fi, backend, download and update-button items became ranks 7–10.
 
