@@ -35,7 +35,7 @@ Decide turns the evidence from Discover and spike S-01 into the **mold**: archit
 
 ### 1.3 Indoor Ringer and backend (outline only)
 - **Indoor Ringer:** the same three layers. Adds Wi-Fi, a backend client, file download and verification, and the ESP-NOW relay to the Doorbell. Detailed after S-02. **Hardware and build (DL-027, 2026-11-12):** same board, amp and pins as the Doorbell; GPIO2 is its test button; GAIN 100 kΩ to GND (15 dB); No-OTA layout; budget B-05; plays the same built-in sound; chimes on power-on; a ring that arrives while it's chiming is ignored.
-- **Backend:** Node.js on a $4–6 Droplet (Discover D6). Login (single user/family), upload, select, versioned API. Detailed in a later sprint.
+- **Backend:** Node.js on a $4–6 Droplet (Discover D6). Login (single user/family), upload, select, versioned API. Detailed in a later sprint. **Uploaded sounds are stored on the Droplet's own disk (DL-032, 2026-11-13)**; a backup plan is decided in the backend's Decide.
 
 ### 1.4 Open questions in the architecture
 - **A1. Battery power path:** on battery, the SuperMini's 5V pin probably isn't powered, so the MAX98357A may need power from the battery side. To be checked against the board before the battery increment.
@@ -101,14 +101,21 @@ The **vital few** is "it rings, inside and out, with the network down." That's t
 
 | Rank | Item | Unit | Needs |
 |---|---|---|---|
-| 1 | Button wake plays the built-in sound from flash, then sleeps | Doorbell | Pipeline + Local tests set up first |
-| 2 | Indoor Ringer plays the built-in sound on a ring message (and on its own test button) | Indoor Ringer | — |
+| 1 | Button wake plays the built-in sound from flash, then sleeps | Doorbell | **Done: baseline 1** (2026-11-12) |
+| 2 | Indoor Ringer plays the built-in sound on a ring message and on its button (test ring for now) | Indoor Ringer | **Done: baseline 2** (2026-11-12) |
 | 3 | Doorbell sends a **ring** message over ESP-NOW (contract v1.0); Ringer rings | Both | ESP-NOW only, no Wi-Fi, so **S-02 isn't needed yet**. **Spike S-03 first** (DL-024, added 2026-11-11) |
-| 4 | Battery power path, status/charging LED, sleep-current measurement | Doorbell | Meter (DL-009), A1 |
-| 5 | Indoor Ringer joins Wi-Fi and reads its config from the backend | Ringer + backend | **Spike S-02** (channel sharing) |
-| 6 | Backend: login, upload, select a sound | Backend | Droplet |
-| 7 | Ringer downloads, verifies and plays the selected sound (fallback per A-04) | Ringer | — |
-| 8 | Ringer relays the sound to the Doorbell over ESP-NOW; Doorbell verifies and plays it | Both | S-02 results; S-03 results and the update-delivery decision (DL-024, added 2026-11-11) |
+| 4 | **Test-sound relay** (moved up from old rank 8, DL-029): the Ringer carries a second sound built into its firmware (from a WAV in `sounds/`, A-06) and sends it to the Doorbell over ESP-NOW; the Doorbell verifies it's complete and intact (A-04), stores it as its active sound (DL-028) and plays it; on any failure it keeps the factory default | Both | S-03 results and the update-delivery decision (DL-024) |
+| 5 | Battery power path, status/charging LED, sleep-current measurement | Doorbell | Meter (DL-009), A1 |
+| 6 | **Configuration mode** (DL-031): holding the Ringer's button 10 s plays a spoken "Configure mode" and opens a web server for settings (home Wi-Fi network and password first); settings stored on the Ringer only (A-01) | Ringer | Design in DL-033 (setup network `DoorbellRinger-Setup`, 10.10.10.0/24, website at 10.10.10.100; setup password from a git-ignored build-time config file; stored Wi-Fi details in plain text for now, DL-034) |
+| 7 | Indoor Ringer joins Wi-Fi and reads its config from the backend | Ringer + backend | **Spike S-02** (channel sharing) |
+| 8 | Backend: login, upload, mark the active sound | Backend | Droplet |
+| 9 | Ringer downloads, verifies and plays the marked sound (fallback per A-04), then relays it to the Doorbell with rank 4's transfer | Both | Ranks 4, 7, 8 |
+| 10 | **Update button** (DL-029, DL-032): a **quick press** of the Ringer's button checks the server and downloads the selected sound, first playing a spoken "Checking for update" (a built-in sound). The same button, **held 10 s**, enters configuration mode (rank 6) | Ringer | Ranks 7–9 |
+| 11 | **Encrypt the stored Wi-Fi details** on the Ringer (DL-034: plain text until then) | Ringer | **Spike S-04** first (eFuse key, core support) |
+
+Re-ranked 2026-11-12 (DL-029): old rank 8 became rank 4 (with a hand-loaded test sound); old ranks 4–7 became 5–8; rank 9 added. Re-ranked 2026-11-13 (DL-031): configuration mode added as rank 6; the Wi-Fi, backend, download and update-button items became ranks 7–10. Rank 11 added 2026-11-13 (DL-034).
+
+**Sprints (DL-030):** 1 to 2026-11-17 (ranks 1–3); 2 to 2026-12-01; 3 to 2026-12-15; 4 to 2026-12-29; then Transition.
 
 **Against the 2026-11-17 date:** ranks 1–3 (plus the pipeline) are a realistic target. That's a working two-unit doorbell with no network at all. Ranks 4–8 are a second sprint. **This is a Product Owner call** (Q6).
 
