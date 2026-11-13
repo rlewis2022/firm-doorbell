@@ -101,14 +101,17 @@ The **vital few** is "it rings, inside and out, with the network down." That's t
 
 | Rank | Item | Unit | Needs |
 |---|---|---|---|
-| 1 | Button wake plays the built-in sound from flash, then sleeps | Doorbell | Pipeline + Local tests set up first |
-| 2 | Indoor Ringer plays the built-in sound on a ring message (and on its own test button) | Indoor Ringer | — |
+| 1 | Button wake plays the built-in sound from flash, then sleeps | Doorbell | **Done: baseline 1** (2026-11-12) |
+| 2 | Indoor Ringer plays the built-in sound on a ring message and on its button (test ring for now) | Indoor Ringer | **Done: baseline 2** (2026-11-12) |
 | 3 | Doorbell sends a **ring** message over ESP-NOW (contract v1.0); Ringer rings | Both | ESP-NOW only, no Wi-Fi, so **S-02 isn't needed yet**. **Spike S-03 first** (DL-024, added 2026-11-11) |
-| 4 | Battery power path, status/charging LED, sleep-current measurement | Doorbell | Meter (DL-009), A1 |
-| 5 | Indoor Ringer joins Wi-Fi and reads its config from the backend | Ringer + backend | **Spike S-02** (channel sharing) |
-| 6 | Backend: login, upload, select a sound | Backend | Droplet |
-| 7 | Ringer downloads, verifies and plays the selected sound (fallback per A-04) | Ringer | — |
-| 8 | Ringer relays the sound to the Doorbell over ESP-NOW; Doorbell verifies and plays it | Both | S-02 results; S-03 results and the update-delivery decision (DL-024, added 2026-11-11) |
+| 4 | **Test-sound relay** (moved up from old rank 8, DL-029): the Ringer carries a second sound built into its firmware (from a WAV in `sounds/`, A-06) and sends it to the Doorbell over ESP-NOW; the Doorbell verifies it's complete and intact (A-04), stores it as its active sound (DL-028) and plays it; on any failure it keeps the factory default | Both | S-03 results and the update-delivery decision (DL-024) |
+| 5 | Battery power path, status/charging LED, sleep-current measurement | Doorbell | Meter (DL-009), A1 |
+| 6 | Indoor Ringer joins Wi-Fi and reads its config from the backend | Ringer + backend | **Spike S-02** (channel sharing) |
+| 7 | Backend: login, upload, mark the active sound | Backend | Droplet |
+| 8 | Ringer downloads, verifies and plays the marked sound (fallback per A-04), then relays it to the Doorbell with rank 4's transfer | Both | Ranks 4, 6, 7 |
+| 9 | **Update button** (DL-029): the Ringer's button checks the server for an update, first playing a spoken "Checking for update" (a second built-in sound). The same button is Inception's reset/config button | Ringer | Ranks 6–8 |
+
+Re-ranked 2026-11-12 (DL-029): old rank 8 became rank 4 (with a hand-loaded test sound); old ranks 4–7 became 5–8; rank 9 added.
 
 **Against the 2026-11-17 date:** ranks 1–3 (plus the pipeline) are a realistic target. That's a working two-unit doorbell with no network at all. Ranks 4–8 are a second sprint. **This is a Product Owner call** (Q6).
 
