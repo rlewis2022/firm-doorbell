@@ -18,9 +18,9 @@ we haven't measured:
   chime is playing, without delaying or disturbing the chime, and what does a check-in for updates
   cost in time and current?
 - **Why it matters:** decides how rank 3 (ring message over ESP-NOW) is built, and how updates reach a
-  Doorbell that's asleep (rank 8): check in after each press, on a timer, or both, and how often.
+  Doorbell that's asleep (rank 4, the test-sound relay, after the DL-029 re-ranking; then rank 8): check in after each press, on a timer, or both, and how often.
   Product Owner's caution (2026-11-11): a check-in must never sit in the start-up path ahead of the sound.
-- **Time box:** proposed 3 hours on the bench (Product Owner to confirm).
+- **Time box:** 3 hours on the bench (confirmed by Ron, 2026-11-12).
 - **What counts as an answer:**
   1. Radio start-up time on the SuperMini: app start → ESP-NOW ready, in ms (serial timing, 5+ wakes).
   2. Ring message delay: Doorbell press → Indoor Ringer reaction, in ms (phone recording of both
