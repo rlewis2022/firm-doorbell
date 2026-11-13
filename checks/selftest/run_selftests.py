@@ -134,6 +134,24 @@ def main():
            lambda r: write(r, ".github/workflows/gate.yml", "steps:\n  - uses: actions/checkout@v5\n"), True)
     expect("A-08 unapproved npm package", "check_a08_dependencies.py",
            lambda r: write(r, "backend/package.json", json.dumps({"dependencies": {"left-pad": "1.3.0"}})), True)
+    # B-05 (Indoor Ringer size): reads a build log
+    def b05(name, log, should_fail):
+        d = tempfile.mkdtemp(prefix="firm-selftest-")
+        try:
+            path = os.path.join(d, "build.log")
+            write(d, "build.log", log)
+            rc = subprocess.run([sys.executable, os.path.join(CHECKS_DIR, "check_b05_ringer_size.py"), path],
+                                capture_output=True).returncode
+            ok = (rc != 0) if should_fail else (rc == 0)
+            results.append((ok, f"{'FAILS' if should_fail else 'PASSES'} as expected: {name}" if ok
+                            else f"WRONG RESULT: {name} (exit {rc})"))
+        finally:
+            shutil.rmtree(d)
+    size_log = "Sketch uses {} bytes (x%) of program storage space. Maximum is {} bytes.\n"
+    b05("B-05 within budget", size_log.format(500000, 2097152), False)
+    b05("B-05 over budget", size_log.format(1600000, 2097152), True)
+    b05("B-05 wrong partition (not No OTA)", size_log.format(500000, 1310720), True)
+    b05("B-05 no size in log (build failed)", "error: something broke\n", True)
     # A-09 (integrity): clean after --update, then tamper
     def a09(name, tamper):
         root = base_tree()

@@ -38,6 +38,7 @@ A two-unit ESP32-S3 doorbell built as a worked example of the FIRM method:
 - **B-01** Doorbell firmware ≤ 1,572,864 bytes (No-OTA layout). Warning at 80%.
 - **B-02** Sounds: PCM WAV, 24 kHz, 16-bit, mono, ≤ 3.0 s (≤ 144,044 bytes).
 - **B-03** Press-to-sound ≤ 300 ms (Real tier, RT-01; approved, DL-025). **B-04** Doorbell average current ≤ 0.9 mA (Real tier).
+- **B-05** Indoor Ringer firmware ≤ 1,572,864 bytes (No-OTA layout). Warning at 80%.
 
 ## Layout and layers
 - `firmware/<unit>/<unit>.ino` — wiring only: create hardware objects, hand them to logic. No decisions.
@@ -50,6 +51,7 @@ A two-unit ESP32-S3 doorbell built as a worked example of the FIRM method:
 ## Hardware facts (measured — Discover D1, spike S-01)
 ESP32-S3 SuperMini, 4 MB flash, 2 MB QSPI PSRAM, 240 MHz, Arduino ESP32 core 3.3.12.
 MAX98357A: BCLK=GPIO4, LRC=GPIO5, DIN=GPIO6. Button GPIO2 → GND (internal pull-up, ext0 wake).
+Indoor Ringer: same pins; GPIO2 is its test button; its amp's GAIN pin has 100 kΩ to GND (15 dB, louder). It doesn't sleep.
 Avoid pins 0, 3, 45, 46 (strapping), 19/20 (USB), 48 (LED), 43/44 (serial).
 
 ## Before you say you're done
