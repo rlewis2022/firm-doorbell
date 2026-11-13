@@ -13,6 +13,7 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 |---|---|---|---|---|---|
 | 0 — the mold in place (no product behavior) | 2026-11-10 | #1 | 842b5aa | Passed ([run 42947604772](https://github.com/rlewis2022/firm-doorbell/actions/runs/42947604772)) | Ron |
 | 1 — INC-01: the Doorbell rings from flash | 2026-11-12 | #5 (merged with #6) | 148b246 | Passed; Verifier review accepted 2026-11-11; RT-02 and RT-01 passed 2026-11-12 (RT-01: 16 clean presses, max 107.2 ms) | Ron |
+| 2 — INC-02: the Indoor Ringer rings | 2026-11-12 | #11 | the merge commit of #11 | Passed on the branch (Ringer 29.8% of B-05; 17/17 Local tests); Verifier review accepted 2026-11-12; RT-03 passed 2026-11-12 | Ron |
 
 ## Lock runs
 
@@ -26,7 +27,7 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 | Increment | Machine gate | Verifier code review | Real tier | Integrated | Baseline |
 |---|---|---|---|---|---|
 | INC-01 | Passed (branch run 43015981086; passed again on `main` after the merge) | **Accepted as written** by Ron, 2026-11-11, reviewing the code on GitHub | RT-02 and RT-01: **PASSED** 2026-11-12 (see Real-tier results) | 2026-11-11, **before the Real tier**: merging PR #6 also brought in INC-01's commits, because #6 was stacked on #5 (an Engineer error; pull requests won't be stacked again). Left in place by decision of the Product Owner. | **Baseline 1**, 2026-11-12 |
-| INC-02 | Passed (branch run 43327044614; Ringer 468,528 bytes = 29.8% of B-05) | Not yet | RT-03: **PASSED** 2026-11-12 (see Real-tier results) | Not yet (PR #11 open) | Not yet: baseline 2 after the code review and the merge |
+| INC-02 | Passed (branch run 43327044614; Ringer 468,528 bytes = 29.8% of B-05) | **Accepted as written** by Ron, 2026-11-12 | RT-03: **PASSED** 2026-11-12 (see Real-tier results) | 2026-11-12, PR #11, after the Real tier and the review | **Baseline 2**, 2026-11-12 |
 
 ## Real-tier results
 
