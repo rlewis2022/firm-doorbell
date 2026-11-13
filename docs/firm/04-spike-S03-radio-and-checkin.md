@@ -35,7 +35,7 @@ we haven't measured:
 - **Disposal:** `spikes/S-03-radio-and-checkin/` in the repo — sketches for both units, serial logs,
   recordings, measurements — read-only, labeled, never merged.
 - **Out of scope:** Wi-Fi on the Indoor Ringer and channel sharing (spike S-02); sending sound files;
-  the contract design (rank 3 decides it, versioned per A-07); deep-sleep current (B-04, rank 4).
+  the contract design (rank 3 decides it, versioned per A-07); deep-sleep current (B-04, rank 5 after the DL-029 re-ranking).
 - **Hardware:** both SuperMinis, both MAX98357A boards and speakers. The second unit runs a throwaway
   receiver sketch.
 
