@@ -7,3 +7,4 @@ an increment card, inside the mold. Keep everything; never edit after closing. C
 | Spike | Question | Status | Decisions |
 |---|---|---|---|
 | S-01-wake-and-play | Button wake + `playWAV()` on the SuperMini/MAX98357A; press-to-sound time | Closed 2026-11-09. Errata 2026-11-11: see `ERRATA.md` (the sketch's comments name the wrong amplifier and sample rate) | DL-006, DL-007, DL-008, DL-010 |
+| S-03-radio-and-checkin | Radio and ESP-NOW alongside the chime; cost of a check-in | Closed 2026-11-15 (Doorbell v3 and Ringer v2 archived; `BENCH-GUIDE.md` is the guide as last revised) | DL-036 |
