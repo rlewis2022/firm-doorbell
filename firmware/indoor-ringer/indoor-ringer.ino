@@ -1,18 +1,23 @@
 // Indoor Ringer firmware (FIRM demo).
 // Layers (DL-011): logic in src/logic/ (plain C++), hardware access in src/hw/, this sketch only wires them.
-// USB powered: it stays awake. start() chimes once at power-on; step() runs over and over.
+// USB powered: it stays awake. start() chimes once at power-on; then the radio starts listening for
+// the Doorbell's rings (ESP-NOW, channel 1); step() runs over and over.
 #include "src/hw/esp32_inputs.h"
+#include "src/hw/espnow_rings.h"
 #include "src/hw/i2s_audio.h"
 #include "src/logic/ring/ringer.h"
 #include "src/sounds/builtin_dingdong.h"
 
 // Wiring: MAX98357A BCLK=GPIO4, LRC=GPIO5, DIN=GPIO6, GAIN 100 kOhm to GND; test button GPIO2 to GND.
 ringer::I2sAudio audio(4, 5, 6);
-ringer::Esp32Inputs inputs(2);
+ringer::EspNowRings rings;
+ringer::Esp32Inputs inputs(2, rings);
 ringer::Ringer bell({builtin_dingdong_wav, builtin_dingdong_wav_len}, audio, inputs);
 
 void setup() {
-    bell.start();
+    Serial.begin(115200);
+    bell.start();   // the power-on chime first
+    rings.begin(1);
 }
 
 void loop() {

@@ -37,16 +37,31 @@ struct Ring {
 // Writes a version 1.0 ring message with this ring number. Returns the bytes written (kSize),
 // or 0 (writing nothing) if `cap` is smaller than kSize.
 inline size_t encode(uint16_t seq, uint8_t* out, size_t cap) {
-    (void)seq; (void)out; (void)cap;
-    return 0;  // LOCK-COMMIT STUB: generation replaces this body
+    if (out == nullptr || cap < kSize) return 0;
+    out[0] = 'F';
+    out[1] = 'D';
+    out[2] = 'B';
+    out[3] = kMajor;
+    out[4] = kMinor;
+    out[5] = kTypeRing;
+    out[6] = static_cast<uint8_t>(seq & 0xFF);
+    out[7] = static_cast<uint8_t>(seq >> 8);
+    return kSize;
 }
 
 // Reads a received message. Fills `out` only when it returns Decode::Ok.
 // Order: NotOurs, then WrongMajor, then TooShort, then WrongType.
 inline Decode decode(const uint8_t* data, size_t len, Ring& out) {
-    (void)data; (void)len;
-    out = Ring{0, 0};
-    return Decode::Ok;  // LOCK-COMMIT STUB: generation replaces this body
+    if (data == nullptr || len < 3 || data[0] != 'F' || data[1] != 'D' || data[2] != 'B') {
+        return Decode::NotOurs;
+    }
+    if (len < 4) return Decode::TooShort;
+    if (data[3] != kMajor) return Decode::WrongMajor;
+    if (len < kSize) return Decode::TooShort;
+    if (data[5] != kTypeRing) return Decode::WrongType;
+    out.minor = data[4];
+    out.seq = static_cast<uint16_t>(data[6] | (data[7] << 8));
+    return Decode::Ok;
 }
 
 }  // namespace ring

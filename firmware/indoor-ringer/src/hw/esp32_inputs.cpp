@@ -2,7 +2,7 @@
 
 namespace ringer {
 
-Esp32Inputs::Esp32Inputs(int buttonPin) : button_(buttonPin) {}
+Esp32Inputs::Esp32Inputs(int buttonPin, EspNowRings& rings) : button_(buttonPin), rings_(rings) {}
 
 uint32_t Esp32Inputs::nowMs() { return millis(); }
 
@@ -14,9 +14,6 @@ bool Esp32Inputs::buttonDown() {
     return digitalRead(button_) == LOW;  // the button pulls GPIO2 to GND
 }
 
-bool Esp32Inputs::takeRing(uint32_t& atMs) {
-    (void)atMs;
-    return false;  // no radio yet: ESP-NOW ring messages come with backlog rank 3
-}
+bool Esp32Inputs::takeRing(uint32_t& atMs) { return rings_.take(atMs); }
 
 }  // namespace ringer
