@@ -1,8 +1,7 @@
 # Spike S-03 — Radio alongside the chime, and checking in (FIRM)
 
-Status: **RECORDED 2026-11-11, not started.** Raised as an escalation during INC-01 (DL-024). Runs before
-backlog rank 3. Spike code is throwaway: archived read-only under `spikes/S-03-radio-and-checkin/`,
-never merged.
+Status: **CLOSED 2026-11-15** (Product Owner). Ran on the bench 2026-11-14/15. Decisions: DL-036. Spike code archived
+read-only in `spikes/S-03-radio-and-checkin/`. Raised as an escalation during INC-01 (DL-024).
 
 ## Why this spike exists
 In deep sleep the Doorbell's radio is completely off, so it can't hear the Indoor Ringer. Every press
@@ -39,5 +38,37 @@ we haven't measured:
 - **Hardware:** both SuperMinis, both MAX98357A boards and speakers. The second unit runs a throwaway
   receiver sketch.
 
-## Results
-Not run yet.
+## Results (bench, 2026-11-14/15; Ron)
+
+Setup: both units side by side, each on a USB data cable to the laptop. Doorbell: `S-03-doorbell.ino`
+(v2, then v3); Ringer: `S-03-ringer.ino` (v1, then v2). Core 3.3.12, ESP32S3 Dev Module, No OTA. ESP-NOW
+broadcast on channel 1 (both boards confirmed channel 1). Archived versions: Doorbell v3, Ringer v2.
+
+| # | Measurement | Result |
+|---|---|---|
+| 1 | Radio start-up (app start → ESP-NOW ready) | `WiFi.mode(STA)` + channel **28.5–33.8 ms**; ESP-NOW init + peer **0.6–0.9 ms** (4 presses with full tables) |
+| 2 | Ring message delay (press → Ringer) | **Not recorded** (no phone recording; Product Owner chose to skip). Serial: the ring is sent **29.9–35.2 ms after app start** in MODE 1. End-to-end delay is measured in rank 3 |
+| 3 | Chime glitch with the radio starting in parallel | **None.** MODE 1, 10 presses: the Doorbell's chime was clean every time (Product Owner, by ear) |
+| 4 | Press-to-sound with radio work added | **Not recorded** (no recording). Serial: audio starts **0.0 ms** after app start in every mode; the radio starts at the same moment on the other core. Rank 3's RT-01 run confirms it against B-03 |
+| 5 | Check-in exchange ("anything new?" → "nothing new") | **2.7–3.2 ms** round trip |
+| 6 | Current while the radio is on | **Not measured** (no USB power meter). Deferred to rank 5 |
+| — | Reliability, MODE 1 | 10 presses: **20 of 20 packets** received by the Ringer (RING + CHECK? each), **10 of 10 beeps**, 10 of 10 check-in replies |
+| — | Radio after the chime (MODE 2) | Radio starts at 2900.6 ms; ring sent **2930.3 ms** after app start: the Ringer would ring ~3 s late. Radio start-up itself unchanged (28.9 ms) |
+| — | Boot → app start | 8.0–8.6 ms on earlier presses, ~25 ms on later ones (24.9, 25.2 ms); cause not determined |
+
+Answer to the question: **yes.** The Doorbell can start its radio on the second core and send the ring
+while the chime plays, with no audible effect on the chime, about 30–35 ms after the app starts. A
+check-in costs ~3 ms of awake time when done during the chime. Its current cost (for timer check-ins)
+is still unknown.
+
+Bench notes:
+- One early MODE 1 press gave no Ringer beep while the check-in reply came back; the Ringer had just
+  been rebooted. Not seen again in 10 + 3 presses with the Ringer fully started.
+- Several hours went to set-up problems, not the radio: a power-only USB cable; USB CDC On Boot
+  disabled on the Ringer (no serial output); a Ringer upload that dropped at 36% (fixed by re-uploading);
+  and the Serial Monitor not reconnecting after deep sleep (fixed in Doorbell v2: it stays awake 20 s
+  after the chime and repeats its table). The original bench guide also didn't say both units must run
+  together; it was rewritten during the spike.
+- Spike spend: bench time wasn't recorded; it ran over two evenings, beyond the 3-hour time box, mostly
+  on the set-up problems above. AI tokens: not available in this session.
+- Ringer v1 printed its MAC as 00:00:00:00:00:00 (read too early); v2 reads it correctly.
