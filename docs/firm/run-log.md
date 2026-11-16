@@ -30,6 +30,7 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 |---|---|---|---|---|---|
 | INC-01 | Passed (branch run 43015981086; passed again on `main` after the merge) | **Accepted as written** by Ron, 2026-11-11, reviewing the code on GitHub | RT-02 and RT-01: **PASSED** 2026-11-12 (see Real-tier results) | 2026-11-11, **before the Real tier**: merging PR #6 also brought in INC-01's commits, because #6 was stacked on #5 (an Engineer error; pull requests won't be stacked again). Left in place by decision of the Product Owner. | **Baseline 1**, 2026-11-12 |
 | INC-02 | Passed (branch run 43327044614; Ringer 468,528 bytes = 29.8% of B-05) | **Accepted as written** by Ron, 2026-11-12 | RT-03: **PASSED** 2026-11-12 (see Real-tier results) | 2026-11-12, PR #11, after the Real tier and the review | **Baseline 2**, 2026-11-12 |
+| INC-03 | Passed (branch run 43834655541; Doorbell 1,047,487 bytes = 66.6% of B-01, Ringer 1,035,643 bytes = 65.8% of B-05; both up ~600 KB with the Wi-Fi/ESP-NOW stack; 30/30 Local tests) | Waiting | RT-04 (with the RT-01 rerun): waiting | — | — |
 
 ## Real-tier results
 
