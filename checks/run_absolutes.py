@@ -15,7 +15,9 @@ CHECKS = [
     "check_a03_doorbell_no_wifi.py",
     "check_a05_ring_path.py",
     "check_a06_builtin_sound.py",
+    "check_a07_contracts.py",
     "check_a08_dependencies.py",
+    "check_common_copies.py",
 ]
 
 
