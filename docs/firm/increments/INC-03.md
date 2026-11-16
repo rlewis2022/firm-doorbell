@@ -7,8 +7,10 @@
   once the chime has started, starts its radio on the other processor core and broadcasts one ring
   message on channel 1. The Indoor Ringer listens on channel 1 and rings once for each ring message it
   can read (contract `ring` v1.0, A-07). A power-on or other wake of the Doorbell doesn't ring the
-  Ringer and doesn't start the radio. A message the Ringer can't read (another major version, cut
-  short, not ours) is ignored: it fails safe by not ringing. The Ringer still ignores a ring that
+  Ringer and doesn't start the radio. **On a version mismatch the Ringer rings anyway** (DL-038: for a
+  doorbell, failing safe means ringing): a message with the ring contract's marker but another major
+  version rings it and is reported on its serial port. Messages that aren't ours, are cut short, or
+  are readable but not a ring are ignored. The Ringer still ignores a ring that
   arrives while it's chiming (INC-02, AC8).
 - **Increment type:** behavior change (both units) and a new shared contract.
 - **Acceptance criteria:**
@@ -41,8 +43,9 @@
   DL-037; rank 13). Broadcast has no radio-level retry: a lost packet is a missed ring (S-03: 20 of 20
   arrived). The Doorbell must not sleep before its send finishes: the hardware layer waits for it
   (up to 200 ms) before deep sleep. The Ringer's radio uses channel 1 until it joins Wi-Fi (rank 7,
-  spike S-02). The ring delay end to end (S-03 measurement 2) isn't measured by the one recording:
-  see RT-04's note.
+  spike S-02). The ring delay end to end (S-03 measurement 2) isn't measured (DL-038). Version
+  mismatch rings (DL-038): under a new major version the Ringer can't tell a ring from another
+  message type.
 - **Files in scope:**
   - `firmware/common/logic/contract/ring.h` (master; declarations and stub in the lock commit;
     generation replaces the two function bodies), copied by `tools/sync_common.py` into
@@ -52,6 +55,8 @@
     replaces the body)
   - `firmware/doorbell/src/hw/` (ESP-NOW link on core 0 that waits for the chime to start; the audio
     wrapper signals the start; sleep waits for the send), `firmware/doorbell/doorbell.ino` (wiring)
+  - `firmware/indoor-ringer/src/logic/listen/` (which decoded messages ring the Ringer, DL-038; added
+    after the lock, so its test is a helper test in `tests/local/unlocked/`, not a locked check)
   - `firmware/indoor-ringer/src/hw/` (ESP-NOW receive: decodes with the contract and queues the
     arrival time for `takeRing()`), `firmware/indoor-ringer/indoor-ringer.ino` (wiring)
   - `tests/local/locked/test_inc03_ring_over_espnow.cpp`, `tests/local/golden/ring_1_0.bin`;
