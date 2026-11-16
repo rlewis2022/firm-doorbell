@@ -21,6 +21,7 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 |---|---|---|---|---|---|
 | INC-01 | 2026-11-11 | see `git log` on `inc/01-ring-from-flash` ("Lock INC-01 checks") | 7 (AC1–AC7, `tests/local/locked/test_inc01_ring.cpp`) | All 7 compiled, ran and failed on their assertions (doctest: 7 of 8 test cases failed; the baseline-0 test passed) | None |
 | INC-02 | 2026-11-12 | see `git log` on `inc/02-ringer-rings` ("Lock INC-02 checks") | 9 (AC1–AC9, `tests/local/locked/test_inc02_ringer.cpp`) | All 9 compiled, ran and failed on their assertions (doctest: 9 of 17 test cases failed; the 8 existing tests passed) | None |
+| INC-03 | 2026-11-16 | see `git log` on `inc/03-ring-over-espnow` ("Lock INC-03 checks") | 12 (AC1–AC12, `tests/local/locked/test_inc03_ring_over_espnow.cpp`; golden sample `tests/local/golden/ring_1_0.bin`) | All 12 compiled, ran and failed on their assertions (doctest: 12 of 29 test cases failed; the 17 existing tests passed). The contract stub's `decode()` returns Ok with empty fields, so the reject tests (AC5–AC8) can't pass by accident | None |
 
 ## Increment status
 
