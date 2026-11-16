@@ -18,3 +18,4 @@ Thumbs.db
 # Python bytecode (regenerated whenever the checks run)
 __pycache__/
 *.pyc
+!tests/local/golden/*.bin
