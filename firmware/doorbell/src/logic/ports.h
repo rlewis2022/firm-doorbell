@@ -39,4 +39,12 @@ public:
     virtual void sleepUntilButton() = 0;
 };
 
+// Sends ring messages to the Indoor Ringer (ESP-NOW broadcast, DL-037). Added in the INC-03 lock commit.
+class RingLink {
+public:
+    virtual ~RingLink() = default;
+    // Starts the radio if it isn't running, then sends `len` bytes. Returns false if the send failed.
+    virtual bool send(const uint8_t* msg, size_t len) = 0;
+};
+
 }  // namespace doorbell

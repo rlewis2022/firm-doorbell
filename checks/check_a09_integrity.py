@@ -31,6 +31,7 @@ PROTECTED_GLOBS = [
     "firmware/*/sketch.yaml",
     "tests/local/*",
     "tests/local/locked/*",
+    "tests/local/golden/*",
     "tests/local/third_party/*",
     "tests/sim/*",
     "tests/real/*",

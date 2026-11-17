@@ -10,11 +10,15 @@ class I2sAudio : public AudioOut {
 public:
     I2sAudio(int bclkPin, int lrcPin, int dinPin);
     bool play(const Sound& sound) override;
+    // Called once per play(), just before the sound starts (or when playback can't start), so radio
+    // work can wait for the sound (sound first, A-05; DL-036).
+    void onStart(void (*fn)()) { onStart_ = fn; }
 
 private:
     I2SClass i2s_;
     int bclk_, lrc_, din_;
     bool started_ = false;
+    void (*onStart_)() = nullptr;
 };
 
 }  // namespace doorbell

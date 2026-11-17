@@ -13,10 +13,13 @@ public:
     bool buttonHeld() override;
     void waitMs(uint32_t ms) override;
     void sleepUntilButton() override;
+    // Called just before deep sleep (used to let a ring message finish sending).
+    void beforeSleep(void (*fn)()) { beforeSleep_ = fn; }
 
 private:
     gpio_num_t button_;
     bool pinReady_ = false;
+    void (*beforeSleep_)() = nullptr;
 };
 
 }  // namespace doorbell

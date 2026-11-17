@@ -113,8 +113,9 @@ The **vital few** is "it rings, inside and out, with the network down." That's t
 | 10 | **Update button** (DL-029, DL-032): a **quick press** of the Ringer's button checks the server and downloads the selected sound, first playing a spoken "Checking for update" (a built-in sound). The same button, **held 10 s**, enters configuration mode (rank 6) | Ringer | Ranks 7–9 |
 | 11 | **Encrypt the stored Wi-Fi details** on the Ringer (DL-034: plain text until then) | Ringer | **Spike S-04** first (eFuse key, core support) |
 | 12 | **Low-battery warning** (DL-035): on each press the Doorbell sends its battery voltage to the Ringer with the ring message (versioned, A-07); the Ringer warns when it's low (and later the web page). How it warns is decided with this item | Both | Ranks 3 and 5 |
+| 13 | **Pair the units and encrypt ESP-NOW** (DL-037): the Ringer accepts rings only from its own Doorbell, and messages are encrypted. Until then the ring is an unencrypted broadcast (accepted risk, DL-037) | Both | Rank 3; a pairing step (likely with configuration mode, rank 6) |
 
-Re-ranked 2026-11-12 (DL-029): old rank 8 became rank 4 (with a hand-loaded test sound); old ranks 4–7 became 5–8; rank 9 added. Re-ranked 2026-11-13 (DL-031): configuration mode added as rank 6; the Wi-Fi, backend, download and update-button items became ranks 7–10. Rank 11 added 2026-11-13 (DL-034). Rank 12 added 2026-11-13 (DL-035), at the end until the Product Owner re-ranks it.
+Re-ranked 2026-11-12 (DL-029): old rank 8 became rank 4 (with a hand-loaded test sound); old ranks 4–7 became 5–8; rank 9 added. Re-ranked 2026-11-13 (DL-031): configuration mode added as rank 6; the Wi-Fi, backend, download and update-button items became ranks 7–10. Rank 11 added 2026-11-13 (DL-034). Rank 12 added 2026-11-13 (DL-035), at the end until the Product Owner re-ranks it. Rank 13 added 2026-11-16 (DL-037), at the end until the Product Owner re-ranks it.
 
 **Sprints (DL-030):** 1 to 2026-11-17 (ranks 1–3); 2 to 2026-12-01; 3 to 2026-12-15; 4 to 2026-12-29; then Transition.
 

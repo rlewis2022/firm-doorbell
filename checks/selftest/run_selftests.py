@@ -134,6 +134,34 @@ def main():
            lambda r: write(r, ".github/workflows/gate.yml", "steps:\n  - uses: actions/checkout@v5\n"), True)
     expect("A-08 unapproved npm package", "check_a08_dependencies.py",
            lambda r: write(r, "backend/package.json", json.dumps({"dependencies": {"left-pad": "1.3.0"}})), True)
+    # A-07 (contracts are versioned and have a golden sample)
+    contract = "#pragma once\n#include <stdint.h>\nnamespace contract { namespace ring {\n" \
+               "constexpr uint8_t kMajor = 1;\nconstexpr uint8_t kMinor = 0;\n} }\n"
+    def a07_good(r):
+        write(r, "firmware/common/logic/contract/ring.h", contract)
+        write(r, "tests/local/golden/ring_1_0.bin", "FDB\x01\x00\x01\x34\x12")
+    expect("A-07 no contracts yet", "check_a07_contracts.py", nothing, False)
+    expect("A-07 versioned contract with its golden sample", "check_a07_contracts.py", a07_good, False)
+    expect("A-07 contract without a version", "check_a07_contracts.py",
+           lambda r: write(r, "firmware/common/logic/contract/ring.h", "#pragma once\n// kMajor = 1\n"), True)
+    expect("A-07 version bumped without a new golden sample", "check_a07_contracts.py",
+           lambda r: (a07_good(r), write(r, "firmware/common/logic/contract/ring.h",
+                                         contract.replace("kMinor = 0", "kMinor = 1"))), True)
+    expect("A-07 golden sample missing", "check_a07_contracts.py",
+           lambda r: write(r, "firmware/common/logic/contract/ring.h", contract), True)
+    # COMMON (each unit's copy of firmware/common/logic matches the master)
+    def common_good(r):
+        write(r, "firmware/common/logic/contract/ring.h", contract)
+        write(r, "firmware/doorbell/src/logic/common/contract/ring.h", contract)
+    expect("COMMON nothing shared yet", "check_common_copies.py", nothing, False)
+    expect("COMMON copy matches the master", "check_common_copies.py", common_good, False)
+    expect("COMMON copy edited by hand", "check_common_copies.py",
+           lambda r: (common_good(r), write(r, "firmware/doorbell/src/logic/common/contract/ring.h",
+                                            contract.replace("kMajor = 1", "kMajor = 2"))), True)
+    expect("COMMON copy missing (sync tool not run)", "check_common_copies.py",
+           lambda r: write(r, "firmware/common/logic/contract/ring.h", contract), True)
+    expect("COMMON copy with no master", "check_common_copies.py",
+           lambda r: (common_good(r), write(r, "firmware/doorbell/src/logic/common/extra.h", "#pragma once\n")), True)
     # B-05 (Indoor Ringer size): reads a build log
     def b05(name, log, should_fail):
         d = tempfile.mkdtemp(prefix="firm-selftest-")
@@ -174,6 +202,7 @@ def main():
     a09("A-09 instruction file edited", lambda r: write(r, "CLAUDE.md", "no rules\n"))
     a09("A-09 new unlisted protected file", lambda r: write(r, "tests/local/test_new.cpp", "//\n"))
     a09("A-09 locked test deleted", lambda r: os.remove(os.path.join(r, "tests/local/test_x.cpp")))
+    a09("A-09 new golden sample not in the manifest", lambda r: write(r, "tests/local/golden/x_1_0.bin", "x"))
 
     bad = [m for ok, m in results if not ok]
     for ok, m in results:

@@ -27,6 +27,7 @@ bool Esp32Power::buttonHeld() {
 void Esp32Power::waitMs(uint32_t ms) { delay(ms); }
 
 void Esp32Power::sleepUntilButton() {
+    if (beforeSleep_) beforeSleep_();
     rtc_gpio_pullup_en(button_);
     rtc_gpio_pulldown_dis(button_);
     esp_sleep_enable_ext0_wakeup(button_, 0);  // wake when the button pulls GPIO2 LOW
