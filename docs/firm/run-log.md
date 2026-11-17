@@ -15,6 +15,7 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 | 0 — the mold in place (no product behavior) | 2026-11-10 | #1 | 842b5aa | Passed ([run 42947604772](https://github.com/rlewis2022/firm-doorbell/actions/runs/42947604772)) | Ron |
 | 1 — INC-01: the Doorbell rings from flash | 2026-11-12 | #5 (merged with #6) | 148b246 | Passed; Verifier review accepted 2026-11-11; RT-02 and RT-01 passed 2026-11-12 (RT-01: 16 clean presses, max 107.2 ms) | Ron |
 | 2 — INC-02: the Indoor Ringer rings | 2026-11-12 | #11 | the merge commit of #11 | Passed on the branch (Ringer 29.8% of B-05; 17/17 Local tests); Verifier review accepted 2026-11-12; RT-03 passed 2026-11-12 | Ron |
+| 3 — INC-03: the Doorbell rings the Indoor Ringer over ESP-NOW | 2026-11-16 | #15 | the merge commit of #15 | Passed on the branch (Doorbell 66.6% of B-01, Ringer 65.8% of B-05; 30/30 Local tests); RT-04 with the RT-01 rerun passed 2026-11-16; merge directed by Ron ("merge"), with no separate review comments recorded | Ron |
 
 ## Lock runs
 
@@ -30,7 +31,7 @@ One row per AI iteration. Recorded by the Engineer. Keep everything.
 |---|---|---|---|---|---|
 | INC-01 | Passed (branch run 43015981086; passed again on `main` after the merge) | **Accepted as written** by Ron, 2026-11-11, reviewing the code on GitHub | RT-02 and RT-01: **PASSED** 2026-11-12 (see Real-tier results) | 2026-11-11, **before the Real tier**: merging PR #6 also brought in INC-01's commits, because #6 was stacked on #5 (an Engineer error; pull requests won't be stacked again). Left in place by decision of the Product Owner. | **Baseline 1**, 2026-11-12 |
 | INC-02 | Passed (branch run 43327044614; Ringer 468,528 bytes = 29.8% of B-05) | **Accepted as written** by Ron, 2026-11-12 | RT-03: **PASSED** 2026-11-12 (see Real-tier results) | 2026-11-12, PR #11, after the Real tier and the review | **Baseline 2**, 2026-11-12 |
-| INC-03 | Passed (branch run 43834655541; Doorbell 1,047,487 bytes = 66.6% of B-01, Ringer 1,035,643 bytes = 65.8% of B-05; both up ~600 KB with the Wi-Fi/ESP-NOW stack; 30/30 Local tests) | Waiting | RT-04 with the RT-01 rerun: **PASSED** 2026-11-16 (see Real-tier results) | — | — |
+| INC-03 | Passed (branch run 43834655541; Doorbell 1,047,487 bytes = 66.6% of B-01, Ringer 1,035,643 bytes = 65.8% of B-05; both up ~600 KB with the Wi-Fi/ESP-NOW stack; 30/30 Local tests) | Ron directed the merge 2026-11-16 ("merge") after RT-04 passed; no separate review comments recorded | RT-04 with the RT-01 rerun: **PASSED** 2026-11-16 (see Real-tier results) | 2026-11-16, PR #15, after the Real tier | **Baseline 3**, 2026-11-16 |
 
 ## Real-tier results
 
