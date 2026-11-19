@@ -25,7 +25,7 @@
   6. [Real] RT-05: with USB plugged in, the charge LED lights (battery not full), and the Doorbell
      still works; unplugged again, it still works.
 - **Not in this increment:** measuring B-04 (no µA meter, DL-039; a known gap in release 1.0); a
-  battery-level warning (rank 13 after the re-rank, from DL-035); checking in on a timer (DL-036).
+  battery-level warning (rank 12, DL-035); checking in on a timer (DL-036).
 - **Simulated tier:** none (Wokwi doesn't implement I2S on the ESP32-S3; power can't be simulated).
 - **Protected behavior:** all absolutes; baselines 1–3 (the INC-01, INC-02 and INC-03 Local tests);
   RT-01 to RT-04 behavior, now on battery. The Indoor Ringer is unchanged.
