@@ -14,15 +14,15 @@
 - **Acceptance criteria:**
   1. [Gate] All absolutes pass; both units build within B-01 and B-05; the 30 existing Local tests
      (baselines 1–3) still pass.
-  2. [Real] RT-05: on battery alone, the Doorbell plays its power-on chime when the battery is
-     connected, and the Ringer stays silent.
+  2. [Real] RT-05: on battery alone, the Doorbell plays its power-on chime after a reset, and the
+     Ringer stays silent.
   3. [Real] RT-05: on battery alone, 10 presses give 10 clean Doorbell chimes, sounding as before
      (no new click or pop, not distorted), and 10 Ringer chimes numbered in order.
   4. [Real] RT-05: B-03 press-to-sound ≤ 300 ms still holds on battery (RT-01 script, DL-026), now
      that the amp is switched on for each sound.
   5. [Real] RT-05: between presses the Doorbell's speaker is silent (no hiss or hum with an ear close
-     to it), and the power LED stays dark.
-  6. [Real] RT-05: with USB plugged in, the charge LED lights (battery not full), and the Doorbell
+     to it), and no LED is lit on battery (the red power LED is removed).
+  6. [Real] RT-05: with USB plugged in, the blue charge LED lights (battery not full), and the Doorbell
      still works; unplugged again, it still works.
 - **Not in this increment:** measuring B-04 (no µA meter, DL-039; a known gap in release 1.0); a
   battery-level warning (rank 12, DL-035); checking in on a timer (DL-036).
@@ -39,6 +39,10 @@
   `firmware/doorbell/src/hw/esp32_power.*` (amp held off through deep sleep),
   `firmware/doorbell/doorbell.ino` (wiring: GPIO7); `tests/real/RT-05-doorbell-on-battery.md`.
 - **Fits the mold?** Yes, after the wall change in this branch (DL-039: hardware facts in `CLAUDE.md`).
+- **Before the lock (2026-11-20):** RT-05 steps 1, 2 and 7 revised from Ron's bench facts: the battery
+  is soldered to the pads (it can't be unplugged, so step 2 restarts with the reset button); the red LED
+  lit on battery alone is the power LED (to remove); the blue LED lit only with USB is the charge LED
+  (kept). The amp's crackle on battery dropped once VIN moved from 5V to B+.
 - **Checks locked:** lock commit on branch `inc/04-battery-path`. No new Local or Simulated checks
   (hardware-layer change only); RT-05 is written and locked before generation (Real-tier procedures
   are exempt from the fail-first lock run).

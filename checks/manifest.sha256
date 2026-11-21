@@ -30,7 +30,7 @@ b3e74d945cd0f3d83530de49eba328d8d7a4cecdc22ae75c3870074b0b28c57d  tests/real/RT-
 4967c2fada9f87181ec5ad2bf2d0312e6f5931eafc88dc29b8667897fd2dd19f  tests/real/RT-02-wake-play-sleep.md
 161aef16230a7097f9d1d4970dbf8643a0d82b0394d738de3d123ca85f99a195  tests/real/RT-03-ringer-rings.md
 f4c6d0013aa3e8f9876773d80d10ea634b7352ad5c2f51a40b1c0895738a9e60  tests/real/RT-04-doorbell-rings-ringer.md
-fe379676c13a341f49ae54b52c6bbffc8604ae6a16b3946b6a644625239cf888  tests/real/RT-05-doorbell-on-battery.md
+089783331281a91a533d3b749bf5820c1b4474b5dd2235cd3747c4c71276f7a6  tests/real/RT-05-doorbell-on-battery.md
 6f8496e923b160fbdd87e2b1d908e1840acc8eabc9dde886c9461157096c9080  tests/sim/README.md
 16da15cacedf9ae193ea4b4c7f999e8147fdd6b970643075e2bdfac57df54473  tools/make_builtin_chime.py
 5cb902757bdaafcbfc501f12304e28f5e02f80af2ee826d38d12ad8b5148b00a  tools/measure_press_to_sound.py
