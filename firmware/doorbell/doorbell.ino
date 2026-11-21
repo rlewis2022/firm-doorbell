@@ -10,8 +10,9 @@
 #include "src/logic/ring/ring.h"
 #include "src/sounds/builtin_dingdong.h"
 
-// Wiring: MAX98357A BCLK=GPIO4, LRC=GPIO5, DIN=GPIO6; button GPIO2 to GND. ESP-NOW on channel 1.
-doorbell::I2sAudio audio(4, 5, 6);
+// Wiring: MAX98357A BCLK=GPIO4, LRC=GPIO5, DIN=GPIO6, SD_MODE=GPIO7 (amp on/off), VIN on the battery (B+);
+// button GPIO2 to GND. ESP-NOW on channel 1.
+doorbell::I2sAudio audio(4, 5, 6, 7);
 doorbell::Esp32Power power(GPIO_NUM_2);
 doorbell::EspNowLink radio(1);  // not "link": POSIX link() exists
 
@@ -19,12 +20,15 @@ RTC_DATA_ATTR uint16_t ringNumber = 0;  // kept through deep sleep; reset to 0 a
 doorbell::WakeReason wakeReason;
 
 void tellRinger() { doorbell::notifyOnWake(wakeReason, ringNumber, radio); }
-void letRingFinish() { doorbell::waitForAfterSoundJob(200); }
+void beforeSleep() {
+    doorbell::waitForAfterSoundJob(200);  // let the ring message finish sending
+    audio.holdAmpOffForSleep();           // amp off through deep sleep (DL-039)
+}
 
 void setup() {
     wakeReason = power.wakeReason();
     doorbell::runAfterSoundStarts(audio, tellRinger, 500);
-    power.beforeSleep(letRingFinish);
+    power.beforeSleep(beforeSleep);
     doorbell::onWake({builtin_dingdong_wav, builtin_dingdong_wav_len}, audio, power);
 }
 
