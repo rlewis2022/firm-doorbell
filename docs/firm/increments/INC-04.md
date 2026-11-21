@@ -8,8 +8,8 @@
   go back to deep sleep. The amp is powered from the battery (B+). The Doorbell switches the amp **on**
   (GPIO7 high) only for the time a sound plays and **off** (GPIO7 low) otherwise, including through
   deep sleep, so the amp's 2.4 mA idle draw (data sheet) isn't spent while the Doorbell sleeps. The
-  board's power LED is removed. Plugging in USB charges the battery through the board's charger.
-- **Increment type:** hardware change (wiring, LED removal) and a small hardware-layer firmware change
+  board's red power LED stays on for release 1.0 (DL-040, a known battery drain). Plugging in USB charges the battery through the board's charger.
+- **Increment type:** hardware change (wiring) and a small hardware-layer firmware change
   (Doorbell only). No decision logic changes, so no new Local checks; the ring path is untouched.
 - **Acceptance criteria:**
   1. [Gate] All absolutes pass; both units build within B-01 and B-05; the 30 existing Local tests
@@ -21,7 +21,7 @@
   4. [Real] RT-05: B-03 press-to-sound ≤ 300 ms still holds on battery (RT-01 script, DL-026), now
      that the amp is switched on for each sound.
   5. [Real] RT-05: between presses the Doorbell's speaker is silent (no hiss or hum with an ear close
-     to it), and no LED is lit on battery (the red power LED is removed).
+     to it), and on battery only the red power LED is lit (DL-040).
   6. [Real] RT-05: with USB plugged in, the blue charge LED lights (battery not full), and the Doorbell
      still works; unplugged again, it still works.
 - **Not in this increment:** measuring B-04 (no µA meter, DL-039; a known gap in release 1.0); a
