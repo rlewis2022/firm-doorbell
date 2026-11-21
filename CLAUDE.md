@@ -56,6 +56,10 @@ A two-unit ESP32-S3 doorbell built as a worked example of the FIRM method:
 ## Hardware facts (measured — Discover D1, spike S-01)
 ESP32-S3 SuperMini, 4 MB flash, 2 MB QSPI PSRAM, 240 MHz, Arduino ESP32 core 3.3.12.
 MAX98357A: BCLK=GPIO4, LRC=GPIO5, DIN=GPIO6. Button GPIO2 → GND (internal pull-up, ext0 wake).
+Doorbell power (DL-039): 3.7 V 2000 mAh LiPo (built-in protection) on the board's B+/B− pads; the board's own
+charger (HW-747 V0.0.2). The Doorbell amp's VIN is on the battery (B+), not 5V; its SD_MODE is on GPIO7: high = play,
+low = amp shut down (held low through deep sleep). The board's red power LED stays on for release 1.0 (DL-040: a
+known battery drain); the blue LED is the charge LED (lit only with USB).
 Indoor Ringer: same pins; GPIO2 is its test button; its amp's GAIN pin has 100 kΩ to GND (15 dB, louder). It doesn't sleep.
 Avoid pins 0, 3, 45, 46 (strapping), 19/20 (USB), 48 (LED), 43/44 (serial).
 
