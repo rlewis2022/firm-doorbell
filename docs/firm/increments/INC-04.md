@@ -14,8 +14,8 @@
 - **Acceptance criteria:**
   1. [Gate] All absolutes pass; both units build within B-01 and B-05; the 30 existing Local tests
      (baselines 1–3) still pass.
-  2. [Real] RT-05: on battery alone, the Doorbell plays its power-on chime after a reset, and the
-     Ringer stays silent.
+  2. [Real] RT-05: the Doorbell plays its power-on chime when the upload restarts it (USB plugged in;
+     revised after the lock, see the run log), and the Ringer stays silent.
   3. [Real] RT-05: on battery alone, 10 presses give 10 clean Doorbell chimes, sounding as before
      (no new click or pop, not distorted), and 10 Ringer chimes numbered in order.
   4. [Real] RT-05: B-03 press-to-sound ≤ 300 ms still holds on battery (RT-01 script, DL-026), now

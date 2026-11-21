@@ -12,14 +12,18 @@
     the charger) removed; the blue charge LED (lit only with USB) kept. Write down how VIN reaches B+
     (wire soldered to the pad, or to the lead).
   - Both units built from the INC-04 build under test (write down the commit), in the Arduino IDE with
-    core 3.3.12, ESP32S3 Dev Module, No OTA, USB CDC On Boot enabled. Upload to the Doorbell over USB,
-    then unplug its USB.
+    core 3.3.12, ESP32S3 Dev Module, No OTA, USB CDC On Boot enabled. The Doorbell is uploaded in
+    step 2.
   - The Indoor Ringer on USB, 2–3 m away, with its Serial Monitor open at 115200 baud and cleared.
   - A phone with a recorder app; Python 3. Quiet room.
 - **Steps:**
   1. With the Doorbell's USB unplugged (battery only), look at both sides of the board.
-  2. Press the Doorbell's reset button (RST) to restart it from power-on. Listen to both units for 5
-     seconds.
+     (Revised after the lock, 2026-11-20, approved by Ron as Verifier: step 2 no longer uses the reset
+     button, which can't be reached on this build; the power-on chime is now heard with USB plugged in.)
+  2. Plug the Doorbell's USB in and upload the INC-04 sketch (hold the Doorbell's own button to keep it
+     awake while the upload starts; the BOOT and RST buttons face the breadboard on this build). The
+     upload restarts the board from power-on. Listen to both units for 5 seconds, then unplug USB.
+     Steps 3 to 6 and 8 run on battery alone.
   3. Start a recording with the phone about 10 cm from the Doorbell's button and speaker.
   4. Press the Doorbell's button firmly and release it at once. Wait for both chimes to finish, then
      3 more seconds. Repeat until there are 10 presses. Stop the recording. Copy the Serial Monitor's
